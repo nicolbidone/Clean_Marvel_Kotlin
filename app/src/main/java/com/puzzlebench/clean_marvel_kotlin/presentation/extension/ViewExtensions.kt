@@ -10,5 +10,3 @@ inline fun <reified T : View> View.findTypeById(@IdRes idRes: Int): T {
 }
 
 inline fun <reified T : View> RecyclerView.ViewHolder.findTypeById(@IdRes idRes: Int): T = itemView.findTypeById(idRes)
-
-
