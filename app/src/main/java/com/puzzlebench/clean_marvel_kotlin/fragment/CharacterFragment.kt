@@ -50,10 +50,9 @@ class CharacterFragment : DialogFragment() {
         val frag = inflater.inflate(R.layout.fragment_character, container, false)
         frag.text_characterName.text = character.name
         frag.text_characterDesc.text = if (character.description != EMPTY_TEXT) character.description else NO_DESCRIPTION
-        frag.imageView.getImageByUrl(character.thumbnail.path + DOT + character.thumbnail.extension)
+        frag.imageView.getImageByUrl("${character.thumbnail.path}$DOT${character.thumbnail.extension}")
         frag.imageView.layoutParams.width =
                 ((mainActivity.getSystemService(Context.WINDOW_SERVICE)as WindowManager).defaultDisplay.width* SCREEN_PERCENTAGE).toInt()
         return frag
     }
-
 }

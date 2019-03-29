@@ -28,7 +28,7 @@ class FragmentView(activity: MainActivity) {
     }
 
     fun showToastNetworkError(error: String) {
-        activityRef.get()!!.applicationContext.showToast(error)
+        activityRef.get()?.applicationContext?.showToast(error)
     }
 
 }
