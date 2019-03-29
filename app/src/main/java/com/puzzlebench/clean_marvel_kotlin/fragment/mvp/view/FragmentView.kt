@@ -1,9 +1,7 @@
-package com.puzzlebench.clean_marvel_kotlin.Fragment.mvp.View
+package com.puzzlebench.clean_marvel_kotlin.fragment.mvp.view
 
-import android.support.v4.app.Fragment
-import com.puzzlebench.clean_marvel_kotlin.Fragment.mvp.CharacterFragment
 import com.puzzlebench.clean_marvel_kotlin.R
-import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
+import com.puzzlebench.clean_marvel_kotlin.fragment.CharacterFragment
 import com.puzzlebench.clean_marvel_kotlin.presentation.MainActivity
 import com.puzzlebench.clean_marvel_kotlin.presentation.extension.showToast
 import java.lang.ref.WeakReference
@@ -16,9 +14,8 @@ class FragmentView(activity: MainActivity) {
 
     private val activityRef = WeakReference(activity)
 
-    fun showFragmentDialog(characters: Character, characterFragment: CharacterFragment) {
+    fun showFragmentDialog(characterFragment: CharacterFragment) {
         val fragmentManager = activityRef.get()?.supportFragmentManager
-//        val newFragment = CharacterFragment.newInstance(characters, activityRef.get()!!)
         characterFragment.show(fragmentManager, FRAGMENT_TAG)
     }
 

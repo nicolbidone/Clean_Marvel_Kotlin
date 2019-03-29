@@ -1,4 +1,4 @@
-package com.puzzlebench.clean_marvel_kotlin.Fragment.mvp
+package com.puzzlebench.clean_marvel_kotlin.fragment
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import com.puzzlebench.clean_marvel_kotlin.Fragment.mvp.Presenter.FragmentPresenter
-import com.puzzlebench.clean_marvel_kotlin.Fragment.mvp.View.FragmentView
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetSingleCharacterServiceUseCase
+import com.puzzlebench.clean_marvel_kotlin.fragment.mvp.presenter.FragmentPresenter
+import com.puzzlebench.clean_marvel_kotlin.fragment.mvp.view.FragmentView
 import com.puzzlebench.clean_marvel_kotlin.presentation.MainActivity
 import com.puzzlebench.clean_marvel_kotlin.presentation.extension.getImageByUrl
 import kotlinx.android.synthetic.main.fragment_character.view.*
