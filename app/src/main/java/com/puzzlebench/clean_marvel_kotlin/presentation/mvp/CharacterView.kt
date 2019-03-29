@@ -11,7 +11,7 @@ import com.puzzlebench.clean_marvel_kotlin.presentation.extension.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.ref.WeakReference
 
-class CharecterView(activity: MainActivity) {
+class CharacterView(activity: MainActivity) {
     companion object {
         private const val SPAN_COUNT = 1
     }
@@ -54,7 +54,7 @@ class CharecterView(activity: MainActivity) {
         activityRef.get()!!.progressBar.visibility = View.VISIBLE
     }
 
-    fun showFragmentDialog(character: Character) {
+    private fun showFragmentDialog(character: Character) {
         val newFragment = CharacterFragment.newInstance(character, activityRef.get()!!)
         newFragment.init()
     }

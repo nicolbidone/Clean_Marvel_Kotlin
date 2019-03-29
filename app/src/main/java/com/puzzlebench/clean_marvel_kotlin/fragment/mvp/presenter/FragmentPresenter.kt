@@ -7,9 +7,7 @@ import com.puzzlebench.clean_marvel_kotlin.presentation.base.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FragmentPresenter(view: FragmentView,
-                        private val getSingleCharacterServiceUseCase: GetSingleCharacterServiceUseCase)
-    : Presenter<FragmentView>(view) {
+class FragmentPresenter(view: FragmentView, private val getSingleCharacterServiceUseCase: GetSingleCharacterServiceUseCase) : Presenter<FragmentView>(view) {
 
     fun init(characterFragment: CharacterFragment) {
         requestGetCharacters(characterFragment)

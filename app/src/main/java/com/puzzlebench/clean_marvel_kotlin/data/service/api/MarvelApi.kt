@@ -13,6 +13,6 @@ interface MarvelApi {
     fun getCharacter(): Call<MarvelBaseResponse<DataBaseResponse<ArrayList<CharacterResponse>>>>
 
     @GET("/v1/public/characters/{characterId}")
-    fun getSingleCharacter(@Path("characterId") characterId: Int):
-            Call<MarvelBaseResponse<DataBaseResponse<ArrayList<CharacterResponse>>>>
+    fun getSingleCharacter(@Path("characterId") characterId: Int)
+            : Call<MarvelBaseResponse<DataBaseResponse<ArrayList<CharacterResponse>>>>
 }

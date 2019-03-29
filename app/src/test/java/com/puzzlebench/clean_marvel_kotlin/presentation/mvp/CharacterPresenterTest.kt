@@ -20,7 +20,7 @@ import org.mockito.Mockito.verify
 class CharacterPresenterTest {
 
 
-    private var view = mock(CharecterView::class.java)
+    private var view = mock(CharacterView::class.java)
     private var characterServiceImp = mock(CharacterServicesImpl::class.java)
     private lateinit var characterPresenter: CharacterPresenter
     private lateinit var getCharacterServiceUseCase: GetCharacterServiceUseCase

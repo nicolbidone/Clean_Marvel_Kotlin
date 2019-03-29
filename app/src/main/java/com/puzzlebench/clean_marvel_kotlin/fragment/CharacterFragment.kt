@@ -25,7 +25,7 @@ class CharacterFragment : DialogFragment() {
         private lateinit var theactivity: MainActivity
 
         fun newInstance(character: Character, activity: MainActivity): CharacterFragment {
-            Companion.character = character
+            this.character = character
             theactivity = activity
             return CharacterFragment()
         }
@@ -33,7 +33,7 @@ class CharacterFragment : DialogFragment() {
 
     fun init() {
         val getSingleCharacterServiceUseCase = GetSingleCharacterServiceUseCase(CharacterServicesImpl(), character.id)
-        val presenter = FragmentPresenter(FragmentView(theactivity), getSingleCharacterServiceUseCase)//, subscriptions)
+        val presenter = FragmentPresenter(FragmentView(theactivity), getSingleCharacterServiceUseCase)
         presenter.init(this)
     }
 
