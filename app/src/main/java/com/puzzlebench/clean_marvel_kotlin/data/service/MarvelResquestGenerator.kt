@@ -15,13 +15,12 @@ class MarvelResquestGenerator {
 
         val defaulthttpUrl = defaultRequest.url()
 
-        val marvelKeyFormula = TS_VALUE+BuildConfig.PRIVATE_API_KEY_VALUE+BuildConfig.PUBLIC_API_KEY_VALUE
-        val md5MarvelKeyFormula = MD5.compute(marvelKeyFormula.toByteArray()).toHexString()
+        val marvelKeyFormulaToMd5 = MD5.compute(marvelKeyFormula.toByteArray()).toHexString()
 
         val httpUrl = defaulthttpUrl.newBuilder()
                 .addQueryParameter(PUBLIC_API_KEY_ARG, BuildConfig.PUBLIC_API_KEY_VALUE)
                 //.addQueryParameter(PRIVATE_API_KEY_ARG, BuildConfig.PRIVATE_API_KEY_VALUE)
-                .addQueryParameter(PRIVATE_API_KEY_ARG, md5MarvelKeyFormula)
+                .addQueryParameter(PRIVATE_API_KEY_ARG, marvelKeyFormulaToMd5)
                 .addQueryParameter(TS, TS_VALUE)
                 .build()
 
@@ -38,4 +37,6 @@ class MarvelResquestGenerator {
         val retrofit = builder.client(httpClient.build()).build()
         return retrofit.create(serviceClass)
     }
+
+    private val marvelKeyFormula = TS_VALUE+BuildConfig.PRIVATE_API_KEY_VALUE+BuildConfig.PUBLIC_API_KEY_VALUE
 }

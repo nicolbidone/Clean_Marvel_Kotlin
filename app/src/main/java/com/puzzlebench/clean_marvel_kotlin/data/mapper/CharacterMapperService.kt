@@ -10,6 +10,7 @@ open class CharacterMapperService : BaseMapperRepository<CharacterResponse, Char
 
     override fun transform(characterResponse: CharacterResponse): Character
             = Character(
+            characterResponse.id,
             characterResponse.name,
             characterResponse.description,
             transformToThumbnail(characterResponse.thumbnail)
@@ -17,6 +18,7 @@ open class CharacterMapperService : BaseMapperRepository<CharacterResponse, Char
 
     override fun transformToResponse(type: Character): CharacterResponse
             = CharacterResponse(
+            type.id,
             type.name,
             type.description,
             transformToThumbnailResponse(type.thumbnail)

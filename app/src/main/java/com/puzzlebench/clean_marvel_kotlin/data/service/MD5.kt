@@ -112,6 +112,7 @@ fun ByteArray.toHexString(): String {
     return sb.toString()
 }
 
+/*
 fun main(args: Array<String>) {
     val testStrings = arrayOf(
             "1e045586e6e1ffb4e0c8d346d9df3052683ae079af5eff3d7ee0a1f565a57affae1abbb8a"
@@ -121,4 +122,4 @@ fun main(args: Array<String>) {
     for (s in testStrings) {
         println("0x${MD5.compute(s.toByteArray()).toHexString()} <== \"$s\"")
     }
-}
+}*/
