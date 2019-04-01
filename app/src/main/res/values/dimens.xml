@@ -13,4 +13,7 @@
     <dimen name="body_text_size_frag">16sp</dimen>
     <dimen name="super_hero_image_width_frag">400dp</dimen>
 
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_corner_padding">5dp</dimen>
+
 </resources>
