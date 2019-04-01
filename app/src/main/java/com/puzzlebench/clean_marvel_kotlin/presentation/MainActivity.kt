@@ -7,6 +7,7 @@ import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterServiceUse
 import com.puzzlebench.clean_marvel_kotlin.presentation.base.BaseRxActivity
 import com.puzzlebench.clean_marvel_kotlin.presentation.mvp.CharacterPresenter
 import com.puzzlebench.clean_marvel_kotlin.presentation.mvp.CharacterView
+import io.realm.Realm
 
 open class MainActivity : BaseRxActivity() {
 
@@ -17,5 +18,6 @@ open class MainActivity : BaseRxActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         presenter.init()
+        Realm.init(this)
     }
 }
