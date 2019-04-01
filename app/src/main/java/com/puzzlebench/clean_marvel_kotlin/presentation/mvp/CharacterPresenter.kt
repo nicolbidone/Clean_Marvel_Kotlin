@@ -6,7 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CharacterPresenter(view: CharecterView, private val getChatacterServiceUseCase: GetCharacterServiceUseCase, val subscriptions: CompositeDisposable) : Presenter<CharecterView>(view) {
+class CharacterPresenter(view: CharacterView, private val getCharacterServiceUseCase: GetCharacterServiceUseCase, val subscriptions: CompositeDisposable) : Presenter<CharacterView>(view) {
 
     fun init() {
         view.init()
@@ -14,7 +14,7 @@ class CharacterPresenter(view: CharecterView, private val getChatacterServiceUse
     }
 
     private fun requestGetCharacters() {
-        val subscription = getChatacterServiceUseCase.invoke().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ characters ->
+        val subscription = getCharacterServiceUseCase.invoke().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ characters ->
             if (characters.isEmpty()) {
                 view.showToastNoItemToShow()
             } else {

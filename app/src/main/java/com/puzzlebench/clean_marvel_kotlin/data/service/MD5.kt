@@ -111,14 +111,3 @@ fun ByteArray.toHexString(): String {
     for (b in this) sb.append(String.format("%02x", b.toInt() and 0xFF))
     return sb.toString()
 }
-
-fun main(args: Array<String>) {
-    val testStrings = arrayOf(
-            "1e045586e6e1ffb4e0c8d346d9df3052683ae079af5eff3d7ee0a1f565a57affae1abbb8a"
-    )
-
-    println("${"hash code".padStart(34)} <== string")
-    for (s in testStrings) {
-        println("0x${MD5.compute(s.toByteArray()).toHexString()} <== \"$s\"")
-    }
-}

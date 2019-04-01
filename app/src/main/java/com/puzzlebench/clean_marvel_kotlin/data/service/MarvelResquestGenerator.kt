@@ -6,22 +6,25 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MarvelResquestGenerator {
-    private val PRIVATE_API_KEY_ARG = "hash"
-    private val PUBLIC_API_KEY_ARG = "apikey"
-    private val TS = "ts"
-    private val TS_VALUE = "1"
+    companion object {
+        private const val PRIVATE_API_KEY_ARG = "hash"
+        private const val PUBLIC_API_KEY_ARG = "apikey"
+        private const val TS = "ts"
+        private const val TS_VALUE = "1"
+    }
+
+    private val marvelKeyFormula = "$TS_VALUE${BuildConfig.PRIVATE_API_KEY_VALUE}${BuildConfig.PUBLIC_API_KEY_VALUE}"
+
     private val httpClient = OkHttpClient.Builder().addInterceptor { chain ->
         val defaultRequest = chain.request()
 
-        val defaulthttpUrl = defaultRequest.url()
+        val defaultHttpUrl = defaultRequest.url()
 
-        val marvelKeyFormula = TS_VALUE+BuildConfig.PRIVATE_API_KEY_VALUE+BuildConfig.PUBLIC_API_KEY_VALUE
-        val md5MarvelKeyFormula = MD5.compute(marvelKeyFormula.toByteArray()).toHexString()
+        val marvelKeyFormulaToMd5 = MD5.compute(marvelKeyFormula.toByteArray()).toHexString()
 
-        val httpUrl = defaulthttpUrl.newBuilder()
+        val httpUrl = defaultHttpUrl.newBuilder()
                 .addQueryParameter(PUBLIC_API_KEY_ARG, BuildConfig.PUBLIC_API_KEY_VALUE)
-                //.addQueryParameter(PRIVATE_API_KEY_ARG, BuildConfig.PRIVATE_API_KEY_VALUE)
-                .addQueryParameter(PRIVATE_API_KEY_ARG, md5MarvelKeyFormula)
+                .addQueryParameter(PRIVATE_API_KEY_ARG, marvelKeyFormulaToMd5)
                 .addQueryParameter(TS, TS_VALUE)
                 .build()
 
