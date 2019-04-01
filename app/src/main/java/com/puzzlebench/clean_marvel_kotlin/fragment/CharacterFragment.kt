@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.util.DisplayMetrics
 import android.view.*
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
@@ -21,7 +20,6 @@ class CharacterFragment : DialogFragment() {
     companion object {
         private lateinit var character: Character
         private const val DOT = "."
-        private const val EMPTY_TEXT = ""
         private const val NO_DESCRIPTION = "No available description"
         private const val SCREEN_PERCENTAGE = .925
         private lateinit var mainActivity: MainActivity
@@ -49,10 +47,10 @@ class CharacterFragment : DialogFragment() {
                               savedInstanceState: Bundle?): View? {
         val frag = inflater.inflate(R.layout.fragment_character, container, false)
         frag.text_characterName.text = character.name
-        frag.text_characterDesc.text = if (character.description != EMPTY_TEXT) character.description else NO_DESCRIPTION
+        frag.text_characterDesc.text = if (!character.description.isEmpty()) character.description else NO_DESCRIPTION
         frag.imageView.getImageByUrl("${character.thumbnail.path}$DOT${character.thumbnail.extension}")
         frag.imageView.layoutParams.width =
-                ((mainActivity.getSystemService(Context.WINDOW_SERVICE)as WindowManager).defaultDisplay.width* SCREEN_PERCENTAGE).toInt()
+                ((mainActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.width * SCREEN_PERCENTAGE).toInt()
         return frag
     }
 }
