@@ -15,7 +15,7 @@ class FragmentPresenter(view: FragmentView, private val getSingleCharacterServic
     }
 
     private fun requestGetCharacters(characterFragment: CharacterFragment) {
-        val character = getSingleCharacterServiceUseCase.invoke().subscribeOn(Schedulers.io())
+        getSingleCharacterServiceUseCase.invoke().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({ characters ->
                     if (characters.isEmpty()) {
                         view.showToastNoItemToShow()
