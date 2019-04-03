@@ -58,4 +58,5 @@ class CharacterView(activity: MainActivity) {
         val newFragment = CharacterFragment.newInstance(character, activityRef.get()!!)
         newFragment.init()
     }
+
 }

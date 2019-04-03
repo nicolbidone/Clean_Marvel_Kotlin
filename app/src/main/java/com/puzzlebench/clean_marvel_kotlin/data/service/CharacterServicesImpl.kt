@@ -28,8 +28,10 @@ class CharacterServicesImpl(private val api: MarvelResquestGenerator = MarvelRes
 
             val response = callResponse.execute()
             if (response.isSuccessful) {
-                subscriber.onNext(mapper.transform(response.body()!!.data!!.characters))
-                subscriber.onComplete()
+                response.body()?.data?.let {
+                    subscriber.onNext(mapper.transform(it.characters))
+                    subscriber.onComplete()
+                }
             } else {
                 subscriber.onError(Throwable(response.message()))
             }
