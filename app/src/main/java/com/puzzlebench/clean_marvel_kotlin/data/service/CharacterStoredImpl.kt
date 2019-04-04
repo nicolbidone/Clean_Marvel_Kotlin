@@ -1,6 +1,7 @@
 package com.puzzlebench.clean_marvel_kotlin.data.service
 
 import android.util.Log
+import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.ID_TEXT
 import com.puzzlebench.clean_marvel_kotlin.MESSAGE_EXISTING_OBJECT
 import com.puzzlebench.clean_marvel_kotlin.REALM_TAG
@@ -27,7 +28,7 @@ class CharacterStoredImpl : CharacterStored {
                     fin.id,
                     fin.name,
                     fin.description,
-                    Thumbnail(fin.thumbnail?.path ?: "", fin.thumbnail?.extension ?: "")
+                    Thumbnail(fin.thumbnail?.path ?: EMPTY_VALUE, fin.thumbnail?.extension ?: EMPTY_VALUE)
             )
             lis.add(character)
         }

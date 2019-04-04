@@ -2,6 +2,7 @@ package com.puzzlebench.clean_marvel_kotlin.presentation.mvp
 
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.SPAN_COUNT
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
@@ -19,20 +20,15 @@ class CharacterView(activity: MainActivity) : CharacterContracts.View {
 
     override fun init() {
         val activity = activityRef.get()
-        if (activity != null) {
-            activity.recycleView.layoutManager = GridLayoutManager(activity, SPAN_COUNT)
-            activity.recycleView.adapter = adapter
-            showLoading()
-        }
+        activity?.recycleView?.layoutManager = GridLayoutManager(activity, SPAN_COUNT)
+        activity?.recycleView?.adapter = adapter
+        showLoading()
     }
 
     override fun showToastNoItemToShow() {
         val activity = activityRef.get()
-        if (activity != null) {
-            val message = activity.baseContext.resources.getString(R.string.message_no_items_to_show)
-            activity.applicationContext.showToast(message)
-
-        }
+        val message = activity?.baseContext?.resources?.getString(R.string.message_no_items_to_show)
+        activity?.applicationContext?.showToast(message ?: EMPTY_VALUE)
     }
 
     override fun showToastNetworkError(error: String) {
