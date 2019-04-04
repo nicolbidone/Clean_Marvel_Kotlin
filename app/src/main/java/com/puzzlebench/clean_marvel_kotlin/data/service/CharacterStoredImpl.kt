@@ -4,6 +4,7 @@ import android.util.Log
 import com.puzzlebench.clean_marvel_kotlin.ID_TEXT
 import com.puzzlebench.clean_marvel_kotlin.MESSAGE_EXISTING_OBJECT
 import com.puzzlebench.clean_marvel_kotlin.REALM_TAG
+import com.puzzlebench.clean_marvel_kotlin.domain.CharacterStored
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmCharacter
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmThumbnail
@@ -12,9 +13,9 @@ import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 
-class CharacterStoredImpl {
+class CharacterStoredImpl : CharacterStored {
 
-    fun getCharacters(): List<Character> {
+    override fun getCharacters(): List<Character> {
 
         val realm = Realm.getDefaultInstance()
 
@@ -26,7 +27,7 @@ class CharacterStoredImpl {
                     fin.id,
                     fin.name,
                     fin.description,
-                    Thumbnail(fin.thumbnail!!.path, fin.thumbnail!!.extension)
+                    Thumbnail(fin.thumbnail?.path ?: "", fin.thumbnail?.extension ?: "")
             )
             lis.add(character)
         }
@@ -36,17 +37,17 @@ class CharacterStoredImpl {
         return lis
     }
 
-    fun setCharacters(characters: List<Character>) {
+    override fun setCharacters(characters: List<Character>) {
         val realm = Realm.getDefaultInstance()
 
-        realm.executeTransaction { realm ->
+        realm.executeTransaction { realmObject ->
             for (character in characters) {
-                val hasId = realm.where<RealmCharacter>().equalTo(ID_TEXT, character.id).findFirst()
+                val hasId = realmObject.where<RealmCharacter>().equalTo(ID_TEXT, character.id).findFirst()
                 if (hasId == null) {
-                    val aux = realm.createObject<RealmCharacter>(character.id)
+                    val aux = realmObject.createObject<RealmCharacter>(character.id)
                     aux.name = character.name
                     aux.description = character.description
-                    val thumbnail = realm.createObject<RealmThumbnail>()
+                    val thumbnail = realmObject.createObject<RealmThumbnail>()
                     thumbnail.path = character.thumbnail.path
                     thumbnail.extension = character.thumbnail.extension
                     aux.thumbnail = thumbnail

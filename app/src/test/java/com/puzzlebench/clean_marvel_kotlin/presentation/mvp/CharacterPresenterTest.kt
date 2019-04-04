@@ -21,6 +21,7 @@ class CharacterPresenterTest {
 
 
     private var view = mock(CharacterView::class.java)
+    private var model = mock(CharacterModel::class.java)
     private var characterServiceImp = mock(CharacterServicesImpl::class.java)
     private lateinit var characterPresenter: CharacterPresenter
     private lateinit var getCharacterServiceUseCase: GetCharacterServiceUseCase
@@ -33,7 +34,7 @@ class CharacterPresenterTest {
 
         getCharacterServiceUseCase = GetCharacterServiceUseCase(characterServiceImp)
         val subscriptions = mock(CompositeDisposable::class.java)
-        characterPresenter = CharacterPresenter(view, getCharacterServiceUseCase, subscriptions, CharacterModel("text", getCharacterStoredUseCase), )
+        characterPresenter = CharacterPresenter(view, model)
 
 
     }
@@ -43,7 +44,7 @@ class CharacterPresenterTest {
         Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception("")))
         characterPresenter.init()
         verify(view).init()
-        verify(characterServiceImp).getCaracters()
+        verify(characterServiceImp).getCharacters()
         verify(view).hideLoading()
         verify(view).showToastNetworkError("")
 
@@ -56,7 +57,7 @@ class CharacterPresenterTest {
         Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(observable)
         characterPresenter.init()
         verify(view).init()
-        verify(characterServiceImp).getCaracters()
+        verify(characterServiceImp).getCharacters()
         verify(view).hideLoading()
         verify(view).showCharacters(itemsCharecters)
 
@@ -70,7 +71,7 @@ class CharacterPresenterTest {
         Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(observable)
         characterPresenter.init()
         verify(view).init()
-        verify(characterServiceImp).getCaracters()
+        verify(characterServiceImp).getCharacters()
 
 
     }

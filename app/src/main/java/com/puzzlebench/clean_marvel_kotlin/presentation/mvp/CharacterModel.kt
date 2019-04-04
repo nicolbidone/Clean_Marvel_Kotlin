@@ -7,10 +7,10 @@ import com.puzzlebench.clean_marvel_kotlin.domain.usecase.SetCharacterStoredUseC
 
 class CharacterModel(private val getCharacterServiceUseCase: GetCharacterServiceUseCase,
                      private val getCharacterStoredUseCase: GetCharacterStoredUseCase,
-                     private val setCharacterStoredUseCase: SetCharacterStoredUseCase) {
+                     private val setCharacterStoredUseCase: SetCharacterStoredUseCase) : CharacterContracts.Model {
 
-    fun getCharacterDataServiceUseCase() = getCharacterServiceUseCase.invoke()
-    fun getCharacterStoredUseCase() = getCharacterStoredUseCase.invoke()
-    fun setCharacterStoredUseCase(characters: List<Character>) = setCharacterStoredUseCase.invoke(characters)
+    override fun getCharacterDataServiceUseCase() = getCharacterServiceUseCase.invoke()
+    override fun getCharacterStoredUseCase() = getCharacterStoredUseCase.invoke()
+    override fun setCharacterStoredUseCase(characters: List<Character>) = setCharacterStoredUseCase.invoke(characters)
 
 }

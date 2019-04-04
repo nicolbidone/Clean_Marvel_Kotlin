@@ -30,7 +30,6 @@ class CharacterFragment : DialogFragment() {
     companion object {
         private lateinit var character: Character
         private lateinit var mainActivity: MainActivity
-
         fun newInstance(character: Character, activity: MainActivity): CharacterFragment {
             this.character = character
             mainActivity = activity

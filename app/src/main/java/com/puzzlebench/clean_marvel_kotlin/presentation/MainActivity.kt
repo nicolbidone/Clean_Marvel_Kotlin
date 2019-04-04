@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : BaseRxActivity() {
 
-
     private val getCharacterServiceUseCase = GetCharacterServiceUseCase(CharacterServicesImpl())
     private val getCharacterStoredUseCase = GetCharacterStoredUseCase(CharacterStoredImpl())
     private val setCharacterStoredUseCase = SetCharacterStoredUseCase(CharacterStoredImpl())
@@ -37,8 +36,8 @@ open class MainActivity : BaseRxActivity() {
     override fun onDestroy() {
         super.onDestroy()
         val realm = Realm.getDefaultInstance()
-        realm.executeTransaction { realm ->
-            realm.deleteAll()
+        realm.executeTransaction { realmObject ->
+            realmObject.deleteAll()
         }
         realm.close()
     }

@@ -5,10 +5,10 @@ import com.puzzlebench.clean_marvel_kotlin.presentation.base.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FragmentPresenter(view: FragmentView, private val model: FragmentModel)
-    : Presenter<FragmentView>(view) {
+class FragmentPresenter(view: FragmentContracts.View, private val model: FragmentContracts.Model)
+    : Presenter<FragmentContracts.View>(view), FragmentContracts.Presenter {
 
-    fun init(characterFragment: CharacterFragment) {
+    override fun init(characterFragment: CharacterFragment) {
         requestGetCharacters(characterFragment)
     }
 

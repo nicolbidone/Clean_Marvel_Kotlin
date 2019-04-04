@@ -3,14 +3,12 @@ package com.puzzlebench.clean_marvel_kotlin.presentation.mvp
 import com.puzzlebench.clean_marvel_kotlin.presentation.base.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.realm.Realm
 
 
-class CharacterPresenter(view: CharacterView, val model: CharacterModel) : Presenter<CharacterView>(view) {
+class CharacterPresenter(view: CharacterContracts.View, val model: CharacterContracts.Model)
+    : Presenter<CharacterContracts.View>(view), CharacterContracts.Presenter {
 
-    lateinit var realm: Realm
-
-    fun init() {
+    override fun init() {
         view.init()
         val lis = model.getCharacterStoredUseCase()
         if (lis.isNotEmpty()) {
@@ -18,7 +16,7 @@ class CharacterPresenter(view: CharacterView, val model: CharacterModel) : Prese
         }
     }
 
-    fun requestGetCharacters() {
+    override fun requestGetCharacters() {
 
         model.getCharacterDataServiceUseCase()
                 .subscribeOn(Schedulers.io())
