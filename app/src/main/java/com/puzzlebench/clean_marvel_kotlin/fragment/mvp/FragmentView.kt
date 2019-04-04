@@ -1,5 +1,6 @@
-package com.puzzlebench.clean_marvel_kotlin.fragment.mvp.view
+package com.puzzlebench.clean_marvel_kotlin.fragment.mvp
 
+import com.puzzlebench.clean_marvel_kotlin.FRAGMENT_TAG
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.fragment.CharacterFragment
 import com.puzzlebench.clean_marvel_kotlin.presentation.MainActivity
@@ -7,10 +8,6 @@ import com.puzzlebench.clean_marvel_kotlin.presentation.extension.showToast
 import java.lang.ref.WeakReference
 
 class FragmentView(activity: MainActivity) {
-
-    companion object {
-        private const val FRAGMENT_TAG = "FRAGMENT_TAG"
-    }
 
     private val activityRef = WeakReference(activity)
 

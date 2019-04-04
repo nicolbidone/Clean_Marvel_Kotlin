@@ -1,10 +1,12 @@
 package com.puzzlebench.clean_marvel_kotlin.presentation
 
 import android.os.Bundle
-import android.view.View
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
+import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterStoredImpl
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterServiceUseCase
+import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterStoredUseCase
+import com.puzzlebench.clean_marvel_kotlin.domain.usecase.SetCharacterStoredUseCase
 import com.puzzlebench.clean_marvel_kotlin.presentation.base.BaseRxActivity
 import com.puzzlebench.clean_marvel_kotlin.presentation.mvp.CharacterModel
 import com.puzzlebench.clean_marvel_kotlin.presentation.mvp.CharacterPresenter
@@ -14,14 +16,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : BaseRxActivity() {
 
-    val getCharacterServiceUseCase = GetCharacterServiceUseCase(CharacterServicesImpl())
-    val presenter = CharacterPresenter(CharacterView(this), CharacterModel(), getCharacterServiceUseCase, subscriptions)
 
+    private val getCharacterServiceUseCase = GetCharacterServiceUseCase(CharacterServicesImpl())
+    private val getCharacterStoredUseCase = GetCharacterStoredUseCase(CharacterStoredImpl())
+    private val setCharacterStoredUseCase = SetCharacterStoredUseCase(CharacterStoredImpl())
+    private val presenter = CharacterPresenter(CharacterView(this),
+            CharacterModel(getCharacterServiceUseCase, getCharacterStoredUseCase, setCharacterStoredUseCase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Realm.init(this)
 
         fab.setOnClickListener {
             presenter.requestGetCharacters()
@@ -32,6 +36,10 @@ open class MainActivity : BaseRxActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.close()
+        val realm = Realm.getDefaultInstance()
+        realm.executeTransaction { realm ->
+            realm.deleteAll()
+        }
+        realm.close()
     }
 }

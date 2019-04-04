@@ -33,7 +33,7 @@ class CharacterPresenterTest {
 
         getCharacterServiceUseCase = GetCharacterServiceUseCase(characterServiceImp)
         val subscriptions = mock(CompositeDisposable::class.java)
-        characterPresenter = CharacterPresenter(view, getCharacterServiceUseCase, subscriptions, CharacterModel("text"), )
+        characterPresenter = CharacterPresenter(view, getCharacterServiceUseCase, subscriptions, CharacterModel("text", getCharacterStoredUseCase), )
 
 
     }
