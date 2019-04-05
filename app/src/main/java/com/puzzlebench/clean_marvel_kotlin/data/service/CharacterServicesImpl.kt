@@ -5,7 +5,7 @@ import com.puzzlebench.clean_marvel_kotlin.data.service.api.MarvelApi
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.CharacterResponse
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.DataBaseResponse
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.MarvelBaseResponse
-import com.puzzlebench.clean_marvel_kotlin.domain.CharacterServices
+import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import io.reactivex.Observable
 import retrofit2.Call

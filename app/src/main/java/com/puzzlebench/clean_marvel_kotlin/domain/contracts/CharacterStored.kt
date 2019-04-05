@@ -1,4 +1,4 @@
-package com.puzzlebench.clean_marvel_kotlin.domain
+package com.puzzlebench.clean_marvel_kotlin.domain.contracts
 
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 

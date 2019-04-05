@@ -10,14 +10,10 @@ class CharacterPresenter(view: CharacterContracts.View, val model: CharacterCont
 
     override fun init() {
         view.init()
-        val lis = model.getCharacterStoredUseCase()
-        if (lis.isNotEmpty()) {
-            view.showCharacters(lis)
-        }
     }
 
     override fun requestGetCharacters() {
-
+        view.showLoading()
         model.getCharacterDataServiceUseCase()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -34,6 +30,18 @@ class CharacterPresenter(view: CharacterContracts.View, val model: CharacterCont
                     view.hideLoading()
                     view.showToastNetworkError(e.message.toString())
                 })
+    }
+
+    override fun requestStoredCharacters() {
+        view.showLoading()
+        model.getCharacterStoredUseCase().let { characters ->
+            if (characters.isNotEmpty()) {
+                view.showCharacters(characters)
+            } else {
+                view.showToastNoItemToShow()
+            }
+            view.hideLoading()
+        }
     }
 
 }
