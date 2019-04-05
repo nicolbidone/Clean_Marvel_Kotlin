@@ -5,20 +5,21 @@ import com.puzzlebench.clean_marvel_kotlin.data.service.api.MarvelApi
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.CharacterResponse
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.DataBaseResponse
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.MarvelBaseResponse
+import com.puzzlebench.clean_marvel_kotlin.domain.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import io.reactivex.Observable
 import retrofit2.Call
 import java.util.*
 
 class CharacterServicesImpl(private val api: MarvelResquestGenerator = MarvelResquestGenerator(),
-                            private val mapper: CharacterMapperService = CharacterMapperService()) {
+                            private val mapper: CharacterMapperService = CharacterMapperService()) : CharacterServices {
 
-    fun getCaracters(): Observable<List<Character>> {
+    override fun getCharacters(): Observable<List<Character>> {
         val callResponse = api.createService(MarvelApi::class.java).getCharacter()
         return getter(callResponse)
     }
 
-    fun getSingleCaracter(id: Int): Observable<List<Character>> {
+    override fun getSingleCharacter(id: Int): Observable<List<Character>> {
         val callResponse = api.createService(MarvelApi::class.java).getSingleCharacter(id)
         return getter(callResponse)
     }
@@ -28,8 +29,10 @@ class CharacterServicesImpl(private val api: MarvelResquestGenerator = MarvelRes
 
             val response = callResponse.execute()
             if (response.isSuccessful) {
-                subscriber.onNext(mapper.transform(response.body()!!.data!!.characters))
-                subscriber.onComplete()
+                response.body()?.data?.let {
+                    subscriber.onNext(mapper.transform(it.characters))
+                    subscriber.onComplete()
+                }
             } else {
                 subscriber.onError(Throwable(response.message()))
             }

@@ -17,4 +17,6 @@
     <dimen name="card_corner_padding">5dp</dimen>
     <dimen name="card_img_top_padding">5dp</dimen>
 
+    <dimen name="fab_size">20dp</dimen>
+
 </resources>
