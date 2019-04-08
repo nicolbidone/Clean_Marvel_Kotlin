@@ -22,7 +22,6 @@ class CharacterView(activity: MainActivity) : CharacterContracts.View {
         val activity = activityRef.get()
         activity?.recycleView?.layoutManager = GridLayoutManager(activity, SPAN_COUNT)
         activity?.recycleView?.adapter = adapter
-        showLoading()
     }
 
     override fun showToastNoItemToShow() {
@@ -43,7 +42,7 @@ class CharacterView(activity: MainActivity) : CharacterContracts.View {
         adapter.data = characters
     }
 
-    private fun showLoading() {
+    override fun showLoading() {
         activityRef.get()?.progressBar?.visibility = View.VISIBLE
     }
 

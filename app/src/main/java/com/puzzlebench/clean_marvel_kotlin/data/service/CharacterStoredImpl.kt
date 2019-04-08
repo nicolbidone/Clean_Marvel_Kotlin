@@ -5,7 +5,7 @@ import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.ID_TEXT
 import com.puzzlebench.clean_marvel_kotlin.MESSAGE_EXISTING_OBJECT
 import com.puzzlebench.clean_marvel_kotlin.REALM_TAG
-import com.puzzlebench.clean_marvel_kotlin.domain.CharacterStored
+import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterStored
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmCharacter
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmThumbnail
@@ -20,11 +20,11 @@ class CharacterStoredImpl : CharacterStored {
 
         val realm = Realm.getDefaultInstance()
 
-        var lis = mutableListOf<Character>()
+        val lis = mutableListOf<Character>()
         val findAllAsync = realm.where<RealmCharacter>().findAllAsync()
         for (fin in findAllAsync) {
 
-            var character = Character(
+            val character = Character(
                     fin.id,
                     fin.name,
                     fin.description,

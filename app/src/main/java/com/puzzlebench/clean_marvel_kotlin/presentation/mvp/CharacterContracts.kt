@@ -13,6 +13,7 @@ interface CharacterContracts {
     interface Presenter {
         fun init()
         fun requestGetCharacters()
+        fun requestStoredCharacters()
     }
 
     interface View {
@@ -21,5 +22,6 @@ interface CharacterContracts {
         fun showToastNetworkError(error: String)
         fun hideLoading()
         fun showCharacters(characters: List<Character>)
+        fun showLoading()
     }
 }
