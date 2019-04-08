@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_size"
-            android:src="@drawable/ic_update_info"
-    />
+            android:src="@drawable/ic_update_info"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_download"
@@ -33,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
             android:layout_margin="@dimen/fab_size"
-            android:src="@drawable/ic_download_info"
-    />
+            android:src="@drawable/ic_download_info"/>
 
 </FrameLayout>
