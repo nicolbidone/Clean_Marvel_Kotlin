@@ -1,5 +1,8 @@
 package com.puzzlebench.clean_marvel_kotlin.fragment.mvp
 
+import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
+import com.puzzlebench.clean_marvel_kotlin.TEN_VALUE
+import com.puzzlebench.clean_marvel_kotlin.ZERO_VALUE
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetSingleCharacterServiceUseCase
@@ -37,7 +40,7 @@ class FragmentPresenterTest {
         @JvmStatic
         fun setUpClass() {
             val immediate = object : Scheduler() {
-                internal var noDelay = 0
+                internal var noDelay = ZERO_VALUE
 
                 override fun scheduleDirect(run: Runnable, delay: Long, unit: TimeUnit): Disposable {
                     return super.scheduleDirect(run, noDelay.toLong(), unit) // Prevents StackOverflowErrors when scheduling with a delay
@@ -55,22 +58,22 @@ class FragmentPresenterTest {
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> immediate }
         }
 
-        private const val SIZE = 10
+        private const val SIZE = TEN_VALUE
     }
 
     @Before
     fun setUp() {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
-        getSingleCharacterServiceUseCase = GetSingleCharacterServiceUseCase(characterService, 1)
+        getSingleCharacterServiceUseCase = GetSingleCharacterServiceUseCase(characterService, ZERO_VALUE)
         model = FragmentModel(getSingleCharacterServiceUseCase)
         presenter = FragmentPresenter(view, model)
     }
 
     @Test
     fun serviceResponseWithError() {
-        Mockito.`when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception("")))
+        Mockito.`when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
         presenter.init(charactersFragment)
-        verify(view).showToastNetworkError("")
+        verify(view).showToastNetworkError(EMPTY_VALUE)
     }
 
     @Test

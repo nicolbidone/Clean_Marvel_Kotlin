@@ -1,6 +1,8 @@
 package com.puzzlebench.clean_marvel_kotlin.presentation.mvp
 
 import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
+import com.puzzlebench.clean_marvel_kotlin.TEN_VALUE
+import com.puzzlebench.clean_marvel_kotlin.ZERO_VALUE
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterStored
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
@@ -30,8 +32,8 @@ class CharacterPresenterTest {
 
 
     private var view = mock(CharacterContracts.View::class.java)
-    private var characterServiceImp = mock(CharacterServices::class.java)
-    private var characterStoredImp = mock(CharacterStored::class.java)
+    private var characterService = mock(CharacterServices::class.java)
+    private var characterStored = mock(CharacterStored::class.java)
 
     private lateinit var model: CharacterContracts.Model
     private lateinit var presenter: CharacterContracts.Presenter
@@ -45,7 +47,7 @@ class CharacterPresenterTest {
         @JvmStatic
         fun setUpClass() {
             val immediate = object : Scheduler() {
-                internal var noDelay = 0
+                internal var noDelay = ZERO_VALUE
 
                 override fun scheduleDirect(run: Runnable, delay: Long, unit: TimeUnit): Disposable {
                     return super.scheduleDirect(run, noDelay.toLong(), unit) // Prevents StackOverflowErrors when scheduling with a delay
@@ -63,7 +65,7 @@ class CharacterPresenterTest {
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> immediate }
         }
 
-        private const val SIZE = 10
+        private const val SIZE = TEN_VALUE
     }
 
     @Before
@@ -71,9 +73,9 @@ class CharacterPresenterTest {
 
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
 
-        getCharacterServiceUseCase = GetCharacterServiceUseCase(characterServiceImp)
-        getCharacterStoredUseCase = GetCharacterStoredUseCase(characterStoredImp)
-        setCharacterStoredUseCase = SetCharacterStoredUseCase(characterStoredImp)
+        getCharacterServiceUseCase = GetCharacterServiceUseCase(characterService)
+        getCharacterStoredUseCase = GetCharacterStoredUseCase(characterStored)
+        setCharacterStoredUseCase = SetCharacterStoredUseCase(characterStored)
 
         model = CharacterModel(getCharacterServiceUseCase, getCharacterStoredUseCase, setCharacterStoredUseCase)
 
@@ -82,7 +84,7 @@ class CharacterPresenterTest {
 
     @Test
     fun serviceResponseWithError() {
-        Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception("")))
+        Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
 
         presenter.requestGetCharacters()
         verify(view).hideCharacters()
