@@ -15,13 +15,13 @@ import org.mockito.Mockito
 
 class CharacterModelTests {
 
+    private var characterServiceImp = Mockito.mock(CharacterServices::class.java)
+    private var characterStoredImp = Mockito.mock(CharacterStored::class.java)
+
     private lateinit var model: CharacterContracts.Model
     private lateinit var getCharacterServiceUseCase: GetCharacterServiceUseCase
     private lateinit var getCharacterStoredUseCase: GetCharacterStoredUseCase
     private lateinit var setCharacterStoredUseCase: SetCharacterStoredUseCase
-
-    private var characterServiceImp = Mockito.mock(CharacterServices::class.java)
-    private var characterStoredImp = Mockito.mock(CharacterStored::class.java)
 
     @Before
     fun setUp() {

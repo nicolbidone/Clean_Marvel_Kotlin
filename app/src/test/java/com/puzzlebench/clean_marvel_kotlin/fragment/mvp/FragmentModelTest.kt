@@ -13,10 +13,10 @@ import org.mockito.Mockito
 
 class FragmentModelTest {
 
+    private var characterService = Mockito.mock(CharacterServices::class.java)
+
     private lateinit var model: FragmentContracts.Model
     private lateinit var getSingleCharacterServiceUseCase: GetSingleCharacterServiceUseCase
-
-    private var characterService = Mockito.mock(CharacterServices::class.java)
 
     @Before
     fun setUp() {

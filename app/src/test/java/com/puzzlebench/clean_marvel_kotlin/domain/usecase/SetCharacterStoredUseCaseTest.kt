@@ -8,8 +8,9 @@ import org.mockito.Mockito.*
 
 class SetCharacterStoredUseCaseTest {
 
-    private lateinit var characterStored: CharacterStored
     private val itemsCharacters = CharactersFactory.getMockCharacter()
+
+    private lateinit var characterStored: CharacterStored
 
     @Before
     fun setUp() {
