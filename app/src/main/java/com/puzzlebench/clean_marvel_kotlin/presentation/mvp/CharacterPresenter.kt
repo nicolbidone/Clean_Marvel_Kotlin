@@ -13,6 +13,7 @@ class CharacterPresenter(view: CharacterContracts.View, val model: CharacterCont
     }
 
     override fun requestGetCharacters() {
+        view.hideCharacters()
         view.showLoading()
         model.getCharacterDataServiceUseCase()
                 .subscribeOn(Schedulers.io())
@@ -33,6 +34,7 @@ class CharacterPresenter(view: CharacterContracts.View, val model: CharacterCont
     }
 
     override fun requestStoredCharacters() {
+        view.hideCharacters()
         view.showLoading()
         model.getCharacterStoredUseCase().let { characters ->
             if (characters.isNotEmpty()) {
@@ -43,5 +45,4 @@ class CharacterPresenter(view: CharacterContracts.View, val model: CharacterCont
             view.hideLoading()
         }
     }
-
 }

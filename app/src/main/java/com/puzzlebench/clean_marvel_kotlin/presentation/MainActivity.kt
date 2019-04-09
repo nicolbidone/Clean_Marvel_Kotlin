@@ -1,7 +1,6 @@
 package com.puzzlebench.clean_marvel_kotlin.presentation
 
 import android.os.Bundle
-import android.view.View
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterStoredImpl
@@ -28,18 +27,19 @@ open class MainActivity : BaseRxActivity() {
         setContentView(R.layout.activity_main)
 
         fab_download.setOnClickListener {
+            realmDestroy()
             presenter.requestGetCharacters()
         }
 
         fab_getStored.setOnClickListener {
             presenter.requestStoredCharacters()
+            realmDestroy()
         }
 
         presenter.init()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun realmDestroy() {
         val realm = Realm.getDefaultInstance()
         realm.executeTransaction { realmObject ->
             realmObject.deleteAll()
