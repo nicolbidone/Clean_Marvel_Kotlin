@@ -11,3 +11,4 @@ const val NO_DESCRIPTION = "No available description"
 const val SCREEN_PERCENTAGE = .93
 const val FRAGMENT_TAG = "FRAGMENT_TAG"
 const val SPAN_COUNT = 1
+const val TEN_VALUE = 10

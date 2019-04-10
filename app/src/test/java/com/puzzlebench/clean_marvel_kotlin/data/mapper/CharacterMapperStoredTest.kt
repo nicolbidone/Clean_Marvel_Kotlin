@@ -3,16 +3,18 @@ package com.puzzlebench.clean_marvel_kotlin.data.mapper
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.CharacterResponse
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.ThumbnailResponse
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
+import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmCharacter
+import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmThumbnail
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Thumbnail
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 
-class CharacterMapperServiceTest {
+class CharacterMapperStoredTest {
 
     companion object {
         private const val ID = 1
@@ -22,11 +24,11 @@ class CharacterMapperServiceTest {
         private const val EXTENSION = ".PNG"
     }
 
-    private lateinit var mapper: CharacterMapperService
+    private lateinit var mapper: CharacterMapperStored
     @Mock
-    private lateinit var mockCharacterResponse: CharacterResponse
+    private lateinit var mockRealmCharacter: RealmCharacter
     @Mock
-    private lateinit var mockThumbnailResponse: ThumbnailResponse
+    private lateinit var mockRealmThumbnail: RealmThumbnail
     @Mock
     private lateinit var mockCharacter: Character
     @Mock
@@ -35,23 +37,23 @@ class CharacterMapperServiceTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockCharacterResponse.thumbnail = mockThumbnailResponse
+        mockRealmCharacter.thumbnail = mockRealmThumbnail
         mockCharacter.thumbnail = mockThumbnail
-        mapper = CharacterMapperService()
+        mapper = CharacterMapperStored()
     }
 
     @Test
     fun transform() {
-        `when`(mockCharacterResponse.id).thenReturn(ID)
-        `when`(mockCharacterResponse.name).thenReturn(NAME)
-        `when`(mockCharacterResponse.description).thenReturn(DESCRIPTION)
-        `when`(mockCharacterResponse.thumbnail).thenReturn(mockThumbnailResponse)
-        `when`(mockThumbnailResponse.extension).thenReturn(EXTENSION)
-        `when`(mockThumbnailResponse.path).thenReturn(PATH)
+        `when`(mockRealmCharacter.id).thenReturn(ID)
+        `when`(mockRealmCharacter.name).thenReturn(NAME)
+        `when`(mockRealmCharacter.description).thenReturn(DESCRIPTION)
+        `when`(mockRealmCharacter.thumbnail).thenReturn(mockRealmThumbnail)
+        `when`(mockRealmThumbnail.extension).thenReturn(EXTENSION)
+        `when`(mockRealmThumbnail.path).thenReturn(PATH)
 
-        assertBufferDataEquality(mockCharacterResponse, mapper.transform(mockCharacterResponse))
+        assertBufferooDataEquality(mockRealmCharacter, mapper.transform(mockRealmCharacter))
     }
-
+    
     @Test
     fun transformToResponse() {
         `when`(mockCharacter.id).thenReturn(ID)
@@ -61,13 +63,13 @@ class CharacterMapperServiceTest {
         `when`(mockThumbnail.extension).thenReturn(EXTENSION)
         `when`(mockThumbnail.path).thenReturn(PATH)
 
-        assertBufferDataEquality(mapper.transformToResponse(mockCharacter), mockCharacter)
+        assertBufferooDataEquality(mapper.transformToResponse(mockCharacter), mockCharacter)
     }
 
-    private fun assertBufferDataEquality(characterResponse: CharacterResponse, character: Character) {
+    private fun assertBufferooDataEquality(characterResponse: RealmCharacter, character: Character) {
         assertEquals(characterResponse.name, character.name)
         assertEquals(characterResponse.description, character.description)
-        assertEquals(characterResponse.thumbnail.path, character.thumbnail.path)
-        assertEquals(characterResponse.thumbnail.extension, character.thumbnail.extension)
+        assertEquals(characterResponse.thumbnail?.path, character.thumbnail.path)
+        assertEquals(characterResponse.thumbnail?.extension, character.thumbnail.extension)
     }
 }

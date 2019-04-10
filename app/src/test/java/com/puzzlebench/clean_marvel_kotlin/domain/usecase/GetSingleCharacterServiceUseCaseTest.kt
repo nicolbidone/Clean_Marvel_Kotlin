@@ -1,5 +1,7 @@
 package com.puzzlebench.clean_marvel_kotlin.domain.usecase
 
+
+import com.puzzlebench.clean_marvel_kotlin.ZERO_VALUE
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import io.reactivex.Observable
@@ -10,7 +12,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
-class GetCharacterServiceUseCaseTest {
+class GetSingleCharacterServiceUseCaseTest {
 
     @Mock
     private lateinit var characterService: CharacterServices
@@ -25,7 +27,7 @@ class GetCharacterServiceUseCaseTest {
 
     @Test
     operator fun invoke() {
-        GetCharacterServiceUseCase(characterService).invoke()
-        verify(characterService).getCharacters()
+        GetSingleCharacterServiceUseCase(characterService, ZERO_VALUE).invoke()
+        verify(characterService).getSingleCharacter(ZERO_VALUE)
     }
 }

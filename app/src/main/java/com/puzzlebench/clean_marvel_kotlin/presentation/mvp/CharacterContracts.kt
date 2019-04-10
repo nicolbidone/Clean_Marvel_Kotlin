@@ -21,7 +21,8 @@ interface CharacterContracts {
         fun showToastNoItemToShow()
         fun showToastNetworkError(error: String)
         fun hideLoading()
-        fun showCharacters(characters: List<Character>)
         fun showLoading()
+        fun showCharacters(characters: List<Character>)
+        fun hideCharacters()
     }
 }

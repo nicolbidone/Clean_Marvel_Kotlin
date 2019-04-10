@@ -4,5 +4,5 @@ class CharacterResponse(
         val id: Int,
         val name: String,
         val description: String,
-        val thumbnail: ThumbnailResponse
+        var thumbnail: ThumbnailResponse
 )

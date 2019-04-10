@@ -42,6 +42,10 @@ class CharacterView(activity: MainActivity) : CharacterContracts.View {
         adapter.data = characters
     }
 
+    override fun hideCharacters(){
+        adapter.data = emptyList()
+    }
+
     override fun showLoading() {
         activityRef.get()?.progressBar?.visibility = View.VISIBLE
     }
