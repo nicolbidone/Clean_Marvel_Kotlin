@@ -1,6 +1,5 @@
 package com.puzzlebench.clean_marvel_kotlin.data.mapper
 
-import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmCharacter
 import com.puzzlebench.clean_marvel_kotlin.domain.model.RealmThumbnail
@@ -34,4 +33,6 @@ open class CharacterMapperStored : BaseMapperRepository<RealmCharacter, Characte
     )
 
     fun transform(realmCharacters: List<RealmCharacter>): List<Character> = realmCharacters.map { transform(it) }
+
+    fun transformToResponse(realmCharacters: List<Character>): List<RealmCharacter> = realmCharacters.map { transformToResponse(it) }
 }

@@ -8,7 +8,7 @@ import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 
@@ -49,9 +49,9 @@ class CharacterMapperServiceTest {
         `when`(mockThumbnailResponse.extension).thenReturn(EXTENSION)
         `when`(mockThumbnailResponse.path).thenReturn(PATH)
 
-        assertBufferooDataEquality(mockCharacterResponse, mapper.transform(mockCharacterResponse))
+        assertBufferDataEquality(mockCharacterResponse, mapper.transform(mockCharacterResponse))
     }
-    
+
     @Test
     fun transformToResponse() {
         `when`(mockCharacter.id).thenReturn(ID)
@@ -61,10 +61,10 @@ class CharacterMapperServiceTest {
         `when`(mockThumbnail.extension).thenReturn(EXTENSION)
         `when`(mockThumbnail.path).thenReturn(PATH)
 
-        assertBufferooDataEquality(mapper.transformToResponse(mockCharacter), mockCharacter)
+        assertBufferDataEquality(mapper.transformToResponse(mockCharacter), mockCharacter)
     }
 
-    private fun assertBufferooDataEquality(characterResponse: CharacterResponse, character: Character) {
+    private fun assertBufferDataEquality(characterResponse: CharacterResponse, character: Character) {
         assertEquals(characterResponse.name, character.name)
         assertEquals(characterResponse.description, character.description)
         assertEquals(characterResponse.thumbnail.path, character.thumbnail.path)
