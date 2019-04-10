@@ -6,9 +6,11 @@ import io.realm.RealmObject
 import io.realm.RealmResults
 import io.realm.annotations.LinkingObjects
 
-open class RealmThumbnail : RealmObject() {
-    var path: String = EMPTY_VALUE
+open class RealmThumbnail (
+    var path: String = EMPTY_VALUE,
     var extension: String = EMPTY_VALUE
+): RealmObject()
+{
     @LinkingObjects(THUMBNAIL_ID)
     val character: RealmResults<RealmCharacter>? = null
 }

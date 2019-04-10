@@ -1,27 +1,30 @@
 package com.puzzlebench.clean_marvel_kotlin.domain.usecase
 
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterStored
-import com.puzzlebench.clean_marvel_kotlin.mocks.factory.CharactersFactory
+import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 
 class SetCharacterStoredUseCaseTest {
 
-    private val itemsCharacters = CharactersFactory.getMockCharacter()
-
+    @Mock
+    private lateinit var itemsCharacters: List<Character>
+    @Mock
     private lateinit var characterStored: CharacterStored
 
     @Before
     fun setUp() {
-        characterStored = mock(CharacterStored::class.java)
+        MockitoAnnotations.initMocks(this)
         `when`(characterStored.setCharacters(itemsCharacters)).then {}
     }
 
     @Test
     operator fun invoke() {
-        val setCharacterStoredUseCase = SetCharacterStoredUseCase(characterStored)
-        setCharacterStoredUseCase.invoke(itemsCharacters)
+        SetCharacterStoredUseCase(characterStored).invoke(itemsCharacters)
         verify(characterStored).setCharacters(itemsCharacters)
     }
 }
