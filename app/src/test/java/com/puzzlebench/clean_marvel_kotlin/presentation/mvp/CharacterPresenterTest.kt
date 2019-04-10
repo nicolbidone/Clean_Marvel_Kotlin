@@ -3,13 +3,10 @@ package com.puzzlebench.clean_marvel_kotlin.presentation.mvp
 import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.TEN_VALUE
 import com.puzzlebench.clean_marvel_kotlin.ZERO_VALUE
-import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
-import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterStored
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterServiceUseCase
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterStoredUseCase
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.SetCharacterStoredUseCase
-import com.puzzlebench.clean_marvel_kotlin.mocks.factory.CharactersFactory
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -20,9 +17,10 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
@@ -30,16 +28,19 @@ import java.util.concurrent.TimeUnit
 // error: However, there was exactly 1 interaction with this mock:
 class CharacterPresenterTest {
 
-
-    private var view = mock(CharacterContracts.View::class.java)
-    private var characterService = mock(CharacterServices::class.java)
-    private var characterStored = mock(CharacterStored::class.java)
+    @Mock
+    private lateinit var view: CharacterContracts.View
+    @Mock
+    private lateinit var getCharacterServiceUseCase: GetCharacterServiceUseCase
+    @Mock
+    private lateinit var getCharacterStoredUseCase: GetCharacterStoredUseCase
+    @Mock
+    private lateinit var setCharacterStoredUseCase: SetCharacterStoredUseCase
+    @Mock
+    private lateinit var characterList: List<Character>
 
     private lateinit var model: CharacterContracts.Model
     private lateinit var presenter: CharacterContracts.Presenter
-    private lateinit var getCharacterServiceUseCase: GetCharacterServiceUseCase
-    private lateinit var getCharacterStoredUseCase: GetCharacterStoredUseCase
-    private lateinit var setCharacterStoredUseCase: SetCharacterStoredUseCase
 
     companion object {
 
@@ -70,81 +71,87 @@ class CharacterPresenterTest {
 
     @Before
     fun setUp() {
-
+        MockitoAnnotations.initMocks(this)
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
 
-        getCharacterServiceUseCase = GetCharacterServiceUseCase(characterService)
-        getCharacterStoredUseCase = GetCharacterStoredUseCase(characterStored)
-        setCharacterStoredUseCase = SetCharacterStoredUseCase(characterStored)
-
         model = CharacterModel(getCharacterServiceUseCase, getCharacterStoredUseCase, setCharacterStoredUseCase)
-
         presenter = CharacterPresenter(view, model)
     }
 
     @Test
     fun serviceResponseWithError() {
-        Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
+        `when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
 
         presenter.requestGetCharacters()
         verify(view).hideCharacters()
         verify(view).showLoading()
+        verify(getCharacterServiceUseCase).invoke()
+
         verify(view).hideLoading()
         verify(view).showToastNetworkError(EMPTY_VALUE)
     }
 
     @Test
     fun serviceResponseWithItemToShow() {
-        val itemsCharacters = CharactersFactory.getMockCharacter()
-        val observable = Observable.just(itemsCharacters)
-        Mockito.`when`(model.getCharacterDataServiceUseCase()).thenReturn(observable)
+        `when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.just(characterList))
 
         presenter.requestGetCharacters()
         verify(view).hideCharacters()
         verify(view).showLoading()
-        verify(view).showCharacters(itemsCharacters)
+        verify(getCharacterServiceUseCase).invoke()
+
+        verify(setCharacterStoredUseCase).invoke(characterList)
+        verify(view).showCharacters(characterList)
+
         verify(view).hideLoading()
     }
 
     @Test
     fun serviceResponseWithoutItemToShow() {
-        val itemsCharacters = emptyList<Character>()
-        val observable = Observable.just(itemsCharacters)
-        Mockito.`when`(getCharacterServiceUseCase.invoke()).thenReturn(observable)
+        `when`(characterList.isEmpty()).thenReturn(true)
+        `when`(getCharacterServiceUseCase.invoke()).thenReturn(Observable.just(emptyList()))
 
         presenter.requestGetCharacters()
         verify(view).hideCharacters()
         verify(view).showLoading()
+        verify(getCharacterServiceUseCase).invoke()
+
         verify(view).showToastNoItemToShow()
+
         verify(view).hideLoading()
     }
 
     @Test
     fun storedResponseWithItemToShow() {
-        val itemsCharacters = CharactersFactory.getMockCharacter()
-        Mockito.`when`(getCharacterStoredUseCase.invoke()).thenReturn(itemsCharacters)
+        `when`(getCharacterStoredUseCase.invoke()).thenReturn(characterList)
 
         presenter.requestStoredCharacters()
         verify(view).hideCharacters()
         verify(view).showLoading()
-        verify(view).showCharacters(itemsCharacters)
+        verify(getCharacterStoredUseCase).invoke()
+
+        verify(view).showCharacters(characterList)
+
         verify(view).hideLoading()
     }
 
     @Test
     fun storedResponseWithoutItemToShow() {
-        val itemsCharacters = emptyList<Character>()
-        Mockito.`when`(getCharacterStoredUseCase.invoke()).thenReturn(itemsCharacters)
+        `when`(characterList.isEmpty()).thenReturn(true)
+        `when`(getCharacterStoredUseCase.invoke()).thenReturn(characterList)
 
         presenter.requestStoredCharacters()
         verify(view).hideCharacters()
         verify(view).showLoading()
+        verify(getCharacterStoredUseCase).invoke()
+
         verify(view).showToastNoItemToShow()
+
         verify(view).hideLoading()
     }
 
     @Test
-    fun viewInit(){
+    fun viewInit() {
         presenter.init()
         verify(view).init()
     }

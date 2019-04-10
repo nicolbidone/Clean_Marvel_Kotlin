@@ -3,11 +3,9 @@ package com.puzzlebench.clean_marvel_kotlin.fragment.mvp
 import com.puzzlebench.clean_marvel_kotlin.EMPTY_VALUE
 import com.puzzlebench.clean_marvel_kotlin.TEN_VALUE
 import com.puzzlebench.clean_marvel_kotlin.ZERO_VALUE
-import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterServices
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetSingleCharacterServiceUseCase
 import com.puzzlebench.clean_marvel_kotlin.fragment.CharacterFragment
-import com.puzzlebench.clean_marvel_kotlin.mocks.factory.CharactersFactory
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -18,21 +16,26 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 class FragmentPresenterTest {
 
-    private var view = mock(FragmentContracts.View::class.java)
-    private var characterService = mock(CharacterServices::class.java)
-    private var charactersFragment = mock(CharacterFragment::class.java)
+    @Mock
+    private lateinit var view: FragmentContracts.View
+    @Mock
+    private lateinit var charactersFragment: CharacterFragment
+    @Mock
+    private lateinit var getSingleCharacterServiceUseCase: GetSingleCharacterServiceUseCase
+    @Mock
+    private lateinit var characterList: List<Character>
 
     private lateinit var model: FragmentContracts.Model
     private lateinit var presenter: FragmentContracts.Presenter
-    private lateinit var getSingleCharacterServiceUseCase: GetSingleCharacterServiceUseCase
 
     companion object {
 
@@ -63,34 +66,38 @@ class FragmentPresenterTest {
 
     @Before
     fun setUp() {
+        MockitoAnnotations.initMocks(this)
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
-        getSingleCharacterServiceUseCase = GetSingleCharacterServiceUseCase(characterService, ZERO_VALUE)
+
         model = FragmentModel(getSingleCharacterServiceUseCase)
         presenter = FragmentPresenter(view, model)
     }
 
     @Test
     fun serviceResponseWithError() {
-        Mockito.`when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
+        `when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.error(Exception(EMPTY_VALUE)))
         presenter.init(charactersFragment)
+        verify(getSingleCharacterServiceUseCase).invoke()
+
         verify(view).showToastNetworkError(EMPTY_VALUE)
     }
 
     @Test
     fun serviceResponseWithItemToShow() {
-        val itemsCharacters = CharactersFactory.getMockCharacter()
-        val observable = Observable.just(itemsCharacters)
-        Mockito.`when`(model.getSingleCharacterServiceUseCase()).thenReturn(observable)
+        `when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.just(characterList))
         presenter.init(charactersFragment)
+        verify(getSingleCharacterServiceUseCase).invoke()
+
         verify(view).showFragmentDialog(charactersFragment)
     }
 
     @Test
     fun serviceResponseWithoutItemToShow() {
-        val itemsCharacters = emptyList<Character>()
-        val observable = Observable.just(itemsCharacters)
-        Mockito.`when`(model.getSingleCharacterServiceUseCase()).thenReturn(observable)
+        `when`(characterList.isEmpty()).thenReturn(true)
+        `when`(getSingleCharacterServiceUseCase.invoke()).thenReturn(Observable.just(characterList))
         presenter.init(charactersFragment)
+        verify(getSingleCharacterServiceUseCase).invoke()
+
         verify(view).showToastNoItemToShow()
     }
 }

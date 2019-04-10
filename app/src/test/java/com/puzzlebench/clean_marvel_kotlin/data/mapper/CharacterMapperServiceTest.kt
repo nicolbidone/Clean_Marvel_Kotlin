@@ -4,45 +4,70 @@ import com.puzzlebench.clean_marvel_kotlin.data.service.response.CharacterRespon
 import com.puzzlebench.clean_marvel_kotlin.data.service.response.ThumbnailResponse
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Character
 import com.puzzlebench.clean_marvel_kotlin.domain.model.Thumbnail
-import junit.framework.Assert
+import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito.*
+import org.mockito.MockitoAnnotations
 
 
 class CharacterMapperServiceTest {
+
+    companion object {
+        private const val ID = 1
+        private const val NAME = "sport"
+        private const val DESCRIPTION = "some description"
+        private const val PATH = "http:/some.com/"
+        private const val EXTENSION = ".PNG"
+    }
+
     private lateinit var mapper: CharacterMapperService
-    private val ID = 1
-    private val NAME = "sport"
-    private val DESCRIPTION = "some description"
-    private val PATH = "http:/some.com/"
-    private val EXTENSION = ".PNG"
+    @Mock
+    private lateinit var mockCharacterResponse: CharacterResponse
+    @Mock
+    private lateinit var mockThumbnailResponse: ThumbnailResponse
+    @Mock
+    private lateinit var mockCharacter: Character
+    @Mock
+    private lateinit var mockThumbnail: Thumbnail
 
     @Before
     fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        mockCharacterResponse.thumbnail = mockThumbnailResponse
+        mockCharacter.thumbnail = mockThumbnail
         mapper = CharacterMapperService()
     }
 
     @Test
     fun transform() {
-        val mockThumbnailResponse = ThumbnailResponse(PATH, EXTENSION)
-        val mockCharacterResponse = CharacterResponse(ID, NAME, DESCRIPTION, mockThumbnailResponse)
-        val result = mapper.transform(mockCharacterResponse)
-        assertBufferooDataEquality(mockCharacterResponse, result)
-    }
+        `when`(mockCharacterResponse.id).thenReturn(ID)
+        `when`(mockCharacterResponse.name).thenReturn(NAME)
+        `when`(mockCharacterResponse.description).thenReturn(DESCRIPTION)
+        `when`(mockCharacterResponse.thumbnail).thenReturn(mockThumbnailResponse)
+        `when`(mockThumbnailResponse.extension).thenReturn(EXTENSION)
+        `when`(mockThumbnailResponse.path).thenReturn(PATH)
 
+        assertBufferooDataEquality(mockCharacterResponse, mapper.transform(mockCharacterResponse))
+    }
+    
     @Test
     fun transformToResponse() {
-        val mockThumbnail = Thumbnail(PATH, EXTENSION)
-        val mockCharacter = Character(ID, NAME, DESCRIPTION, mockThumbnail)
-        val result = mapper.transformToResponse(mockCharacter)
-        assertBufferooDataEquality(result, mockCharacter)
+        `when`(mockCharacter.id).thenReturn(ID)
+        `when`(mockCharacter.name).thenReturn(NAME)
+        `when`(mockCharacter.description).thenReturn(DESCRIPTION)
+        `when`(mockCharacter.thumbnail).thenReturn(mockThumbnail)
+        `when`(mockThumbnail.extension).thenReturn(EXTENSION)
+        `when`(mockThumbnail.path).thenReturn(PATH)
+
+        assertBufferooDataEquality(mapper.transformToResponse(mockCharacter), mockCharacter)
     }
 
-    private fun assertBufferooDataEquality(characterResponse: CharacterResponse,
-                                           character: Character) {
-        Assert.assertEquals(characterResponse.name, character.name)
-        Assert.assertEquals(characterResponse.description, character.description)
-        Assert.assertEquals(characterResponse.thumbnail.path, character.thumbnail.path)
-        Assert.assertEquals(characterResponse.thumbnail.extension, character.thumbnail.extension)
+    private fun assertBufferooDataEquality(characterResponse: CharacterResponse, character: Character) {
+        assertEquals(characterResponse.name, character.name)
+        assertEquals(characterResponse.description, character.description)
+        assertEquals(characterResponse.thumbnail.path, character.thumbnail.path)
+        assertEquals(characterResponse.thumbnail.extension, character.thumbnail.extension)
     }
 }

@@ -27,19 +27,21 @@ open class MainActivity : BaseRxActivity() {
         setContentView(R.layout.activity_main)
 
         fab_download.setOnClickListener {
-            realmDestroy()
             presenter.requestGetCharacters()
         }
 
         fab_getStored.setOnClickListener {
             presenter.requestStoredCharacters()
-            realmDestroy()
+        }
+
+        fab_clean.setOnClickListener {
+            realmClean()
         }
 
         presenter.init()
     }
 
-    private fun realmDestroy() {
+    private fun realmClean() {
         val realm = Realm.getDefaultInstance()
         realm.executeTransaction { realmObject ->
             realmObject.deleteAll()
