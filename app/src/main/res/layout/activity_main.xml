@@ -4,13 +4,19 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".presentation.MainActivity">
+    <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ToolbarTheme"/>
 
     <ImageView android:id="@+id/imgvw"
                android:layout_width="wrap_content"
                android:layout_height="@dimen/main_image_size"
                android:layout_gravity="center_vertical|center_horizontal"
-               android:src="@drawable/marvel_comics_logo"
-               android:contentDescription="TODO"/>
+               android:src="@drawable/marvel_comics_logo"/>
     <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
