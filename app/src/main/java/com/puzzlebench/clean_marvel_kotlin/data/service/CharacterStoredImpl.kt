@@ -2,6 +2,7 @@ package com.puzzlebench.clean_marvel_kotlin.data.service
 
 import android.util.Log
 import com.puzzlebench.clean_marvel_kotlin.ID_TEXT
+import com.puzzlebench.clean_marvel_kotlin.MESSAGE_EXISTING_OBJECT
 import com.puzzlebench.clean_marvel_kotlin.REALM_TAG
 import com.puzzlebench.clean_marvel_kotlin.data.mapper.CharacterMapperStored
 import com.puzzlebench.clean_marvel_kotlin.domain.contracts.CharacterStored
@@ -28,7 +29,9 @@ class CharacterStoredImpl : CharacterStored {
 
         realm.executeTransaction { realmObject ->
             for (character in characters) {
-                realmObject.where<RealmCharacter>().equalTo(ID_TEXT, character.id)?.findFirst().let {
+                realmObject.where<RealmCharacter>().equalTo(ID_TEXT, character.id).findFirst()?.let {
+                    showStatus(MESSAGE_EXISTING_OBJECT)
+                } ?: run{
                     realm.insert(mapper.transformToResponse(character))
                 }
             }

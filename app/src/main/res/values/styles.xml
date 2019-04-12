@@ -19,28 +19,51 @@
 
     <style name="CharacterName" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">#B71C1C</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/marvel_regular</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">2</item>
-        <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">2</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowDx">@integer/shadowDxCN</item>
+        <item name="android:shadowDy">@integer/shadowDyCN</item>
+        <item name="android:shadowRadius">@integer/shadowRadiusCN</item>
+    </style>
+
+    <style name="CharacterNameLandscape" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/title_text_size_double</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/marvel_regular</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowDx">@integer/shadowDxCNL</item>
+        <item name="android:shadowDy">@integer/shadowDyCNL</item>
+        <item name="android:shadowRadius">@integer/shadowRadiusCNL</item>
     </style>
 
     <style name="FragmentCharacterName" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/title_text_size_frag</item>
-        <item name="android:textColor">#801414</item>
+        <item name="android:textColor">@color/colorPrimary</item>
 
         <item name="android:fontFamily">@font/marvel_regular</item>
     </style>
 
     <style name="FragmentCharacterDescription" parent="FragmentCharacterName">
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/body_text_size_frag</item>
+    </style>
+
+    <style name="FragmentCharacterNameLandscape" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/title_text_size_frag_double</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+
+        <item name="android:fontFamily">@font/marvel_regular</item>
+    </style>
+
+    <style name="FragmentCharacterDescriptionLandscape" parent="FragmentCharacterNameLandscape">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/body_text_size_frag_double</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/dokdoregular</item>
     </style>
+
 
 </resources>
