@@ -7,7 +7,7 @@
 
     <ImageView android:id="@+id/imgvw"
                android:layout_width="wrap_content"
-               android:layout_height="250dp"
+               android:layout_height="@dimen/main_image_size"
                android:layout_gravity="center_vertical|center_horizontal"
                android:src="@drawable/marvel_comics_logo"
                android:contentDescription="TODO"/>

@@ -13,14 +13,15 @@
             app:srcCompat="@drawable/marvel_comics_logo_small"
             android:id="@+id/image_rotation"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="@dimen/absY"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="126dp"
-            android:layout_marginStart="126dp"
-            android:layout_marginBottom="301dp"
+            android:layout_marginLeft="@dimen/absX"
+            android:layout_marginStart="@dimen/absX"
+            android:layout_marginBottom="@dimen/absY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="127dp" android:layout_marginRight="127dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"/>
+            android:layout_marginEnd="@dimen/absX"
+            android:layout_marginRight="@dimen/absX"
+            app:layout_constraintHorizontal_bias="@dimen/bias"
+            app:layout_constraintVertical_bias="@dimen/bias"/>
 </android.support.constraint.ConstraintLayout>

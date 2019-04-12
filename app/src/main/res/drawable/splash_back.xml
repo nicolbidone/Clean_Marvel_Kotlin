@@ -3,6 +3,6 @@
     <item android:drawable="@color/white"></item>
     <item >
         <bitmap android:src="@drawable/marvel_comics_logo_small"
-                android:gravity="center"></bitmap>
+                android:gravity="center_vertical|center_horizontal"></bitmap>
     </item>
 </layer-list>

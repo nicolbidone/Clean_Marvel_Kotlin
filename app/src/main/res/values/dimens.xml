@@ -19,4 +19,9 @@
 
     <dimen name="fab_size">20dp</dimen>
 
+    <dimen name="main_image_size">250dp</dimen>
+    <dimen name="absY">301dp</dimen>
+    <dimen name="absX">126dp</dimen>
+
+    <item name="bias" type="dimen" format="float">0.0</item>
 </resources>
