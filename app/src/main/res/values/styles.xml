@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,36 +15,38 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="CharacterName" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">@font/marvel_regular</item>
-        <item name="android:shadowColor">@color/black</item>
-        <item name="android:shadowDx">@integer/shadowDxCN</item>
-        <item name="android:shadowDy">@integer/shadowDyCN</item>
-        <item name="android:shadowRadius">@integer/shadowRadiusCN</item>
-    </style>
-
-    <style name="CharacterNameLandscape" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/title_text_size_double</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">@font/marvel_regular</item>
+    <style name="Shadow">
         <item name="android:shadowColor">@color/black</item>
         <item name="android:shadowDx">@integer/shadowDxCNL</item>
         <item name="android:shadowDy">@integer/shadowDyCNL</item>
         <item name="android:shadowRadius">@integer/shadowRadiusCNL</item>
     </style>
 
+    <!--PORTRAIT-->
+
+    <style name="CharacterName" parent="Shadow">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/marvel_regular</item>
+    </style>
+
     <style name="FragmentCharacterName" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/title_text_size_frag</item>
         <item name="android:textColor">@color/colorPrimary</item>
-
         <item name="android:fontFamily">@font/marvel_regular</item>
     </style>
 
     <style name="FragmentCharacterDescription" parent="FragmentCharacterName">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/body_text_size_frag</item>
+    </style>
+
+    <!--LANDSCAPE-->
+
+    <style name="CharacterNameLandscape" parent="Shadow">
+        <item name="android:textSize">@dimen/title_text_size_double</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/marvel_regular</item>
     </style>
 
     <style name="FragmentCharacterNameLandscape" parent="TextAppearance.AppCompat">
@@ -58,6 +58,19 @@
     <style name="FragmentCharacterDescriptionLandscape" parent="FragmentCharacterNameLandscape">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/body_text_size_frag_double</item>
+    </style>
+
+    <!--TOOLBAR-->
+    
+    <style name="CollapseToolbarTheme" parent="Shadow">
+        <item name="android:textColor">@color/marvel_yellow</item>
+        <item name="android:fontFamily">@font/marvel_regular</item>
+    </style>
+
+    <style name="ExpandedToolbarTheme" parent="Shadow">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/marvel_regular</item>
+
     </style>
 
 </resources>

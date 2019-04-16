@@ -26,4 +26,6 @@
     <dimen name="absY">301dp</dimen>
     <dimen name="absX">126dp</dimen>
 
+    <dimen name="collapse_toolbar">150dp</dimen>
+
 </resources>
