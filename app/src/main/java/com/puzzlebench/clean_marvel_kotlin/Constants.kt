@@ -14,3 +14,4 @@ const val SPAN_COUNT = 1
 const val TEN_VALUE = 10
 const val SPLASH_DURATION = 4000L
 const val ANIMATION_DURATION = 2000L
+const val RECYCLER_SHOW = "recycler_show"

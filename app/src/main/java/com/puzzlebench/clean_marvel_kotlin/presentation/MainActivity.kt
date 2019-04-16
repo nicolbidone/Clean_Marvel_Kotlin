@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import android.support.v4.content.res.ResourcesCompat
 import android.view.Menu
 import com.puzzlebench.clean_marvel_kotlin.R
+import com.puzzlebench.clean_marvel_kotlin.RECYCLER_SHOW
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterStoredImpl
 import com.puzzlebench.clean_marvel_kotlin.domain.usecase.GetCharacterServiceUseCase
@@ -43,23 +44,23 @@ open class MainActivity : BaseRxActivity() {
 
         fab_download.setOnClickListener {
             presenter.requestGetCharacters()
-            editor.putBoolean("recycler_show",true)
+            editor.putBoolean(RECYCLER_SHOW,true)
             editor.commit()
         }
 
         fab_getStored.setOnClickListener {
             presenter.requestStoredCharacters()
-            editor.putBoolean("recycler_show",true)
+            editor.putBoolean(RECYCLER_SHOW,true)
             editor.commit()
         }
 
         fab_clean.setOnClickListener {
             realmClean()
-            editor.putBoolean("recycler_show",false)
+            editor.putBoolean(RECYCLER_SHOW,false)
             editor.commit()
         }
 
-        if (pref.getBoolean("recycler_show",false)){
+        if (pref.getBoolean(RECYCLER_SHOW,false)){
             presenter.requestStoredCharacters()
         }
 
