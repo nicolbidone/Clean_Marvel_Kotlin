@@ -1,6 +1,8 @@
 package com.puzzlebench.clean_marvel_kotlin.presentation
 
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.preference.PreferenceManager
 import android.support.v4.content.res.ResourcesCompat
 import android.view.Menu
 import com.puzzlebench.clean_marvel_kotlin.R
@@ -30,6 +32,9 @@ open class MainActivity : BaseRxActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = pref.edit()
+
         val typeface = ResourcesCompat.getFont(applicationContext, R.font.marvel_regular)
         toolbar_layout.setCollapsedTitleTypeface(typeface)
         toolbar_layout.setExpandedTitleTypeface(typeface)
@@ -38,14 +43,24 @@ open class MainActivity : BaseRxActivity() {
 
         fab_download.setOnClickListener {
             presenter.requestGetCharacters()
+            editor.putBoolean("recycler_show",true)
+            editor.commit()
         }
 
         fab_getStored.setOnClickListener {
             presenter.requestStoredCharacters()
+            editor.putBoolean("recycler_show",true)
+            editor.commit()
         }
 
         fab_clean.setOnClickListener {
             realmClean()
+            editor.putBoolean("recycler_show",false)
+            editor.commit()
+        }
+
+        if (pref.getBoolean("recycler_show",false)){
+            presenter.requestStoredCharacters()
         }
 
         presenter.init()
