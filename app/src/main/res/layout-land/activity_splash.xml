@@ -7,21 +7,15 @@
         android:layout_height="match_parent"
         tools:context=".animation.SplashActivity">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/marvel_comics_logo_small"
-            android:id="@+id/image_rotation"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/absY"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="@dimen/absX"
-            android:layout_marginStart="@dimen/absX"
-            android:layout_marginBottom="@dimen/absY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/absX"
-            android:layout_marginRight="@dimen/absX"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintVertical_bias="0.501"/>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/marvel_comics_logo_small"
+                android:id="@+id/image_rotation"
+                android:layout_gravity="center"/>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

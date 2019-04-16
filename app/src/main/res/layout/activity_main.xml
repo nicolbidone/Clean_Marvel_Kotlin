@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".presentation.MainActivity">
-    <android.support.v7.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ToolbarTheme"/>
 
     <ImageView android:id="@+id/imgvw"
                android:layout_width="wrap_content"
@@ -23,12 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_getStored"
@@ -36,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_size"
-            android:src="@drawable/ic_update_info"/>
+            android:src="@drawable/ic_update_info"
+            android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_download"
@@ -44,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_margin="@dimen/fab_size"
-            android:src="@drawable/ic_download_info"/>
+            android:src="@drawable/ic_download_info"
+            android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_clean"
@@ -52,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
             android:layout_margin="@dimen/fab_size"
-            android:src="@drawable/ic_clean_info"/>
+            android:src="@drawable/ic_clean_info"
+            android:layout_marginTop="?attr/actionBarSize"/>
 
 </FrameLayout>

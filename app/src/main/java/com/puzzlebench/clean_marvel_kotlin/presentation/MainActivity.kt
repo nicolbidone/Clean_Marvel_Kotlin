@@ -1,8 +1,6 @@
 package com.puzzlebench.clean_marvel_kotlin.presentation
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.view.Menu
 import com.puzzlebench.clean_marvel_kotlin.R
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterServicesImpl
 import com.puzzlebench.clean_marvel_kotlin.data.service.CharacterStoredImpl
@@ -29,8 +27,6 @@ open class MainActivity : BaseRxActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setSupportActionBar(toolbar)
 
         fab_download.setOnClickListener {
             presenter.requestGetCharacters()

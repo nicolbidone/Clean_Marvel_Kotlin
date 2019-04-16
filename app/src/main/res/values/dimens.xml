@@ -26,5 +26,4 @@
     <dimen name="absY">301dp</dimen>
     <dimen name="absX">126dp</dimen>
 
-    <item name="bias" type="dimen" format="float">0.0</item>
 </resources>
