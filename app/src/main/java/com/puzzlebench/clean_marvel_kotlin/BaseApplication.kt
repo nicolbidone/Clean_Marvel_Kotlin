@@ -1,4 +1,4 @@
-package com.puzzlebench.clean_marvel_kotlin.presentation
+package com.puzzlebench.clean_marvel_kotlin
 
 import android.app.Application
 
@@ -8,7 +8,6 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         Realm.init(this)
     }
 }

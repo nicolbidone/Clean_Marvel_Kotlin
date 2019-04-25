@@ -32,7 +32,9 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textSize="@dimen/title_text_size_frag"/>
+                style="@style/FragmentCharacterName"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
 
         <TextView
                 android:id="@+id/text_characterDesc"
@@ -42,6 +44,6 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textSize="@dimen/body_text_size_frag"/>
+                style="@style/FragmentCharacterDescription"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

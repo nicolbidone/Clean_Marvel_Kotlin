@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="shadowDxCN">2</integer>
+    <integer name="shadowDyCN">2</integer>
+    <integer name="shadowRadiusCN">2</integer>
+
+    <integer name="shadowDxCNL">2</integer>
+    <integer name="shadowDyCNL">2</integer>
+    <integer name="shadowRadiusCNL">2</integer>
+
+    <integer name="weight1">1</integer>
+
+</resources>

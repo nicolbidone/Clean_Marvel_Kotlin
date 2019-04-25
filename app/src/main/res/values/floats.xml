@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="bias" type="dimen" format="float">0.0</item>
+    <item name="biasl" type="dimen" format="float">0.5</item>
+
+</resources>

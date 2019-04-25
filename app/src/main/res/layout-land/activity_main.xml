@@ -55,17 +55,16 @@
             android:id="@+id/fab_getStored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
+            android:layout_gravity="bottom|right"
             android:layout_margin="@dimen/fab_size"
             android:src="@drawable/ic_update_info"
-            android:layout_marginTop="?attr/actionBarSize"
-    />
+            android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
+            android:layout_gravity="center_vertical|right"
             android:layout_margin="@dimen/fab_size"
             android:src="@drawable/ic_download_info"
             android:layout_marginTop="?attr/actionBarSize"/>
@@ -74,9 +73,9 @@
             android:id="@+id/fab_clean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
+            android:layout_gravity="top|right"
             android:layout_margin="@dimen/fab_size"
             android:src="@drawable/ic_clean_info"
-            android:layout_marginTop="?attr/actionBarSize"/>
+    />
 
 </android.support.design.widget.CoordinatorLayout>
